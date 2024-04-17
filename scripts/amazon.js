@@ -1,6 +1,6 @@
 
 let productsHTML = '';
-
+//gets products from products.js and generates html 
 products.forEach((product)=>{
   productsHTML += `
     <div class="product-container">
@@ -47,9 +47,35 @@ products.forEach((product)=>{
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary">
+    <button class="add-to-cart-button button-primary js-add-button" data-product-id="${product.id}">
       Add to Cart
     </button>
   </div>`
 });
 document.querySelector('.js-product-container').innerHTML = productsHTML;
+
+//adds event listeners to add buttons
+document.querySelectorAll('.js-add-button')
+  .forEach((button)=>{                                
+    button.addEventListener('click',()=>{
+      const productId = button.dataset.productId; //on click save data-product-id in a const
+      let matchingItem;           //boolean value
+      
+      cart.forEach((item)=>{              //when button clicked goe trough cart.js[], and if 
+        if(productId === item.productId ){    //it exists set item to matching item
+          matchingItem = item;
+        }
+      });
+
+      if(matchingItem){             //if matchingItem exsits its making this statemant true thus
+        matchingItem.quantity++;    // it only increases its quantity and skips cart.push
+      }else{
+        cart.push({
+          productId,
+          quantity: 1
+        });
+      }
+        console.log(cart);
+    });
+    
+});
