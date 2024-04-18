@@ -11,7 +11,7 @@ export const cart = [
   },
   {
     productId: "54e0eccd-8f36-462b-b68a-8182611d9add",
-    quantity:3
+    quantity: 3
   }
 ];
 
