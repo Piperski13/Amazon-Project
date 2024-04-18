@@ -1,3 +1,5 @@
+import {cart} from "../data/cart.js"; // imports a const cart from cart.js, created module
+
 
 let productsHTML = '';
 //gets products from products.js and generates html 
