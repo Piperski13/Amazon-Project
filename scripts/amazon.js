@@ -1,7 +1,8 @@
-import {cart} from "../data/cart.js"; // imports a const cart from cart.js, created module
+import {cart, addToCart} from "../data/cart.js"; // imports a const cart from cart.js, created module
 import {products} from "../data/products.js";
 
 let productsHTML = '';
+
 //gets products from products.js and generates html 
 products.forEach((product)=>{
   productsHTML += `
@@ -54,36 +55,25 @@ products.forEach((product)=>{
     </button>
   </div>`
 });
+
 document.querySelector('.js-product-container').innerHTML = productsHTML;
+
+function updateCartQuantity(){
+  let cartQuantity = 0;
+
+  cart.forEach(cartItem => {
+    cartQuantity+=cartItem.quantity
+  });
+
+  document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+}
 
 //adds event listeners to add buttons
 document.querySelectorAll('.js-add-button')
   .forEach((button)=>{                                
     button.addEventListener('click',()=>{
       const productId = button.dataset.productId; //on click save data-product-id in a const
-      let matchingItem;           //boolean value
-      
-      cart.forEach((item)=>{              //when button clicked goe trough cart.js[], and if 
-        if(productId === item.productId ){    //it exists set item to matching item
-          matchingItem = item;
-        }
-      });
-
-      if(matchingItem){             //if matchingItem exsits its making this statemant true thus
-        matchingItem.quantity++;    // it only increases its quantity and skips cart.push
-      }else{
-        cart.push({
-          productId,
-          quantity: 1
-        });
-      }
-      let cartQuantity = 0;
-
-      cart.forEach(item => {
-        cartQuantity+=item.quantity
-      });
-
-      document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+      addToCart(productId);
+      updateCartQuantity();
     });
-    
 });
