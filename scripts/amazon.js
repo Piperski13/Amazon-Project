@@ -1,4 +1,4 @@
-import {cart, addToCart} from "../data/cart.js"; // imports a const cart from cart.js, created module
+import {cart, addToCart,calculateCartQuantity} from "../data/cart.js"; // imports a const cart from cart.js, created module
 import {products} from "../data/products.js";
 import {formatCurrency} from "./utils/money.js";
 
@@ -59,13 +59,9 @@ products.forEach((product)=>{
 
 document.querySelector('.js-product-container').innerHTML = productsHTML;
 
-function updateCartQuantity(){
-  let cartQuantity = 0;
-
-  cart.forEach(cartItem => {
-    cartQuantity+=cartItem.quantity
-  });
-  if(!cartQuantity){
+function updateCartQuantity(){        
+  let cartQuantity = calculateCartQuantity();   //cart.js function that calculates cart quantity
+  if(!cartQuantity){          //essentialy break a function if cartQuantity undefined
     return;
   }
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
