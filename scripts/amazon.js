@@ -4,7 +4,6 @@ import {formatCurrency} from "./utils/money.js";
 
 
 let productsHTML = '';
-updateCartQuantity();
 //gets products from products.js and generates html 
 products.forEach((product)=>{
   productsHTML += `
@@ -69,6 +68,7 @@ function updateCartQuantity(){
 
   document.querySelector('.cart-quantity').innerHTML = cartQuantity;
 }
+
 function addedToCartGreen(productId,timeoutObject){     // pop up msg function
   let addMsgElement = document.querySelector(`.js-add-cart-${productId}`);    //target add cart div with opacity 0
       addMsgElement.classList.add('added-to-cart-clicked');                // and then give it a class with opacity 1
