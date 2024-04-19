@@ -2,7 +2,7 @@ import {cart, addToCart} from "../data/cart.js"; // imports a const cart from ca
 import {products} from "../data/products.js";
 import {formatCurrency} from "./utils/money.js";
 
-
+updateCartQuantity();
 let productsHTML = '';
 //gets products from products.js and generates html 
 products.forEach((product)=>{
@@ -65,8 +65,10 @@ function updateCartQuantity(){
   cart.forEach(cartItem => {
     cartQuantity+=cartItem.quantity
   });
-
-  document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+  if(!cartQuantity){
+    return;
+  }
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
 
 function addedToCartGreen(productId,timeoutObject){     // pop up msg function
