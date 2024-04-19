@@ -47,7 +47,7 @@ products.forEach((product)=>{
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart js-add-cart-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -69,14 +69,26 @@ function updateCartQuantity(){
 
   document.querySelector('.cart-quantity').innerHTML = cartQuantity;
 }
+function addedToCartGreen(productId,timeoutObject){     // pop up msg function
+  let addMsgElement = document.querySelector(`.js-add-cart-${productId}`);    //target add cart div with opacity 0
+      addMsgElement.classList.add('added-to-cart-clicked');                // and then give it a class with opacity 1
+      
+      if (timeoutObject.timeoutId){               //if true, it means that interval exists, clear it else -> skip it
+        clearTimeout(timeoutObject.timeoutId);
+      }
+      timeoutObject.timeoutId = setTimeout(()=>{        //removes class and return opacity to 0 in 2000ms 
+        addMsgElement.classList.remove('added-to-cart-clicked');      //it also stores interval into timeoutObject
+      },2000);                                      //so if we press it again we can clear interval with if statemant
+}
 
 //adds event listeners to add buttons
 document.querySelectorAll('.js-add-button')
-  .forEach((button)=>{                                
+  .forEach((button)=>{      
+    let addedMessageTimeouts = {};                           //create a object for checking interval addedToCartGreen
     button.addEventListener('click',()=>{
-      const productId = button.dataset.productId; //on click save data-product-id in a const
-      
+      const productId = button.dataset.productId;   //on click save data-product-id in a const
       addToCart(productId);
+      addedToCartGreen(productId,addedMessageTimeouts);  // for a green pop up msg function
       updateCartQuantity();
     });
 });
