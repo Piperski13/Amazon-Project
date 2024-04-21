@@ -209,3 +209,14 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+.quantity-imput{
+  width: 30px;
+}
+.quantity-imput,
+.save-quantity-link{
+  display: none;
+}
+.is-editing-quantity .quantity-imput,
+.is-editing-quantity .save-quantity-link{
+  display: initial;
+}
