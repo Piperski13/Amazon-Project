@@ -216,6 +216,10 @@
 .save-quantity-link{
   display: none;
 }
+.is-editing-quantity .quantity-label,
+.is-editing-quantity .update-quantity-link{
+  display: none;
+}
 .is-editing-quantity .quantity-imput,
 .is-editing-quantity .save-quantity-link{
   display: initial;
