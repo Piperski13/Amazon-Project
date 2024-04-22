@@ -209,6 +209,7 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+/* checkout update/input start */
 .quantity-imput{
   width: 30px;
 }
@@ -224,3 +225,4 @@
 .is-editing-quantity .save-quantity-link{
   display: initial;
 }
+/* checkout update/input end */
