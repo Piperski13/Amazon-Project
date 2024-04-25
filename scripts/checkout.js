@@ -5,6 +5,14 @@ import {formatCurrency} from "./utils/money.js";
 
 let checkoutHTML = '';
 
+const body = document.body;
+body.addEventListener('click',(event)=>{
+  console.log(event.target);
+  if(!event.target.matches('span') && !event.target.matches('input')){
+    generateCheckoutHTML();
+  }
+});
+
 generateCheckoutHTML(); // generates the whole checkout page with all its funcionality
 
 function generateCheckoutHTML(){
@@ -148,6 +156,7 @@ function saveLinkEvent(){
 
       const quantityImput = document.querySelector(`.js-quantity-imput-${productId}`)
       let newQuantity = Number(quantityImput.value);
+      console.log(typeof newQuantity);
       if(newQuantity === 0){
         deleteContainer(productId);
         updateQuantity(productId,newQuantity);
@@ -157,9 +166,6 @@ function saveLinkEvent(){
         alert('Error value');
         generateCheckoutHTML();
       }
-      if(newQuantity != Number){
-        return;
-      }
       else{
         updateQuantity(productId,newQuantity);
         generateCheckoutHTML();
@@ -167,9 +173,11 @@ function saveLinkEvent(){
     });
   });
 }
+
 function deleteContainer(productId){
   removeFromCart(productId);
   const container = document.querySelector(`.js-cart-item-container-${productId}`);
   container.remove();
   updateCartQuantity();
 }
+
