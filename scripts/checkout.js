@@ -4,14 +4,24 @@ import {formatCurrency} from "./utils/money.js";
 
 
 let checkoutHTML = '';
-
 const body = document.body;
+
 body.addEventListener('click',(event)=>{
-  console.log(event.target);
   if(!event.target.matches('span') && !event.target.matches('input')){
     generateCheckoutHTML();
   }
 });
+function keyboardEvent(productId){
+  document.querySelectorAll('.quantity-imput').forEach((input)=>{
+    input.addEventListener('keydown',(event)=>{
+      if(event.key==='Enter'){
+        const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
+        itemContainer.classList.remove('is-editing-quantity');
+        updateInput(productId);
+      }
+    });
+  });
+};
 
 generateCheckoutHTML(); // generates the whole checkout page with all its funcionality
 
@@ -142,6 +152,7 @@ function productQuantityUpdate(){
       const productId = link.dataset.productId;
       const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
       itemContainer.classList.add('is-editing-quantity');
+      keyboardEvent(productId);
     });
   });
 }
@@ -153,23 +164,7 @@ function saveLinkEvent(){
       const productId = link.dataset.productId;
       const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
       itemContainer.classList.remove('is-editing-quantity');
-
-      const quantityImput = document.querySelector(`.js-quantity-imput-${productId}`)
-      let newQuantity = Number(quantityImput.value);
-      console.log(typeof newQuantity);
-      if(newQuantity === 0){
-        deleteContainer(productId);
-        updateQuantity(productId,newQuantity);
-        generateCheckoutHTML();
-      }
-      if(newQuantity>=1000 || newQuantity<0){
-        alert('Error value');
-        generateCheckoutHTML();
-      }
-      else{
-        updateQuantity(productId,newQuantity);
-        generateCheckoutHTML();
-      }
+      updateInput(productId);
     });
   });
 }
@@ -180,4 +175,22 @@ function deleteContainer(productId){
   container.remove();
   updateCartQuantity();
 }
+function updateInput(productId){
+  const quantityImput = document.querySelector(`.js-quantity-imput-${productId}`)
+  let newQuantity = Number(quantityImput.value);
+  if(newQuantity === 0){
+    deleteContainer(productId);
+    updateQuantity(productId,newQuantity);
+    generateCheckoutHTML();
+  }
+  if(newQuantity>=1000 || newQuantity<0){
+    alert('Error value');
+    generateCheckoutHTML();
+  }
+  else{
+    updateQuantity(productId,newQuantity);
+    generateCheckoutHTML();
+  }
+}
+
 
