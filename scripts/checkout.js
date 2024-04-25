@@ -120,25 +120,25 @@ function updateCartQuantity(){
   }
 };
   function productQuantityUpdate(){
-  //event Listener for a delete button
-  document.querySelectorAll('.js-delete-link').forEach((link)=>{
-    link.addEventListener('click',()=>{
-      const productId = link.dataset.productId;
-      removeFromCart(productId);
-      const container = document.querySelector(`.cart-item-container-${productId}`);
-      container.remove();
-      updateCartQuantity();
+    //event Listener for a delete button
+    document.querySelectorAll('.js-delete-link').forEach((link)=>{
+      link.addEventListener('click',()=>{
+        const productId = link.dataset.productId;
+        removeFromCart(productId);
+        const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        container.remove();
+        updateCartQuantity();
+      });
     });
-  });
 
-  //event Listener for a update button
-  document.querySelectorAll('.js-update-link').forEach((link)=>{
-    link.addEventListener('click',()=>{
-      const productId = link.dataset.productId;
-      const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
-      itemContainer.classList.add('is-editing-quantity');
+    //event Listener for a update button
+    document.querySelectorAll('.js-update-link').forEach((link)=>{
+      link.addEventListener('click',()=>{
+        const productId = link.dataset.productId;
+        const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
+        itemContainer.classList.add('is-editing-quantity');
+      });
     });
-  });
 }
   //adds event listeners to all Save links and on click removes class that was previously set for container, gets value from input and turns it into a num, and the pass is it in cart.js
   // and finnaly updates the page ( *generateCheckoutHTML() )
