@@ -119,30 +119,27 @@ function updateCartQuantity(){
     document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
   }
 };
-  function productQuantityUpdate(){
-    //event Listener for a delete button
-    document.querySelectorAll('.js-delete-link').forEach((link)=>{
-      link.addEventListener('click',()=>{
-        const productId = link.dataset.productId;
-        removeFromCart(productId);
-        const container = document.querySelector(`.js-cart-item-container-${productId}`);
-        container.remove();
-        updateCartQuantity();
-      });
+function productQuantityUpdate(){
+  //event Listener for a delete button
+  document.querySelectorAll('.js-delete-link').forEach((link)=>{
+    link.addEventListener('click',()=>{
+      const productId = link.dataset.productId;
+      deleteContainer(productId);
     });
+  });
 
-    //event Listener for a update button
-    document.querySelectorAll('.js-update-link').forEach((link)=>{
-      link.addEventListener('click',()=>{
-        const productId = link.dataset.productId;
-        const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
-        itemContainer.classList.add('is-editing-quantity');
-      });
+  //event Listener for a update button
+  document.querySelectorAll('.js-update-link').forEach((link)=>{
+    link.addEventListener('click',()=>{
+      const productId = link.dataset.productId;
+      const itemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
+      itemContainer.classList.add('is-editing-quantity');
     });
+  });
 }
   //adds event listeners to all Save links and on click removes class that was previously set for container, gets value from input and turns it into a num, and the pass is it in cart.js
   // and finnaly updates the page ( *generateCheckoutHTML() )
-  function saveLinkEvent(){
+function saveLinkEvent(){
   document.querySelectorAll('.js-save-link').forEach((link)=>{
     link.addEventListener('click',()=>{
       const productId = link.dataset.productId;
@@ -150,9 +147,29 @@ function updateCartQuantity(){
       itemContainer.classList.remove('is-editing-quantity');
 
       const quantityImput = document.querySelector(`.js-quantity-imput-${productId}`)
-      const newQuantity = Number(quantityImput.value);
-      updateQuantity(productId,newQuantity);
-      generateCheckoutHTML();
+      let newQuantity = Number(quantityImput.value);
+      if(newQuantity === 0){
+        deleteContainer(productId);
+        updateQuantity(productId,newQuantity);
+        generateCheckoutHTML();
+      }
+      if(newQuantity>=1000 || newQuantity<0){
+        alert('Error value');
+        generateCheckoutHTML();
+      }
+      if(newQuantity != Number){
+        return;
+      }
+      else{
+        updateQuantity(productId,newQuantity);
+        generateCheckoutHTML();
+      }
     });
   });
+}
+function deleteContainer(productId){
+  removeFromCart(productId);
+  const container = document.querySelector(`.js-cart-item-container-${productId}`);
+  container.remove();
+  updateCartQuantity();
 }
