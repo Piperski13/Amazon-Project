@@ -1,7 +1,8 @@
 import {cart,removeFromCart,calculateCartQuantity,updateQuantity} from "../data/cart.js";
 import {products} from "../data/products.js"
 import {formatCurrency} from "./utils/money.js";
-
+import {deliveryOptions} from "../data/deliveryOptions.js"
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"; //dayjs library
 
 let checkoutHTML = '';
 const body = document.body;
@@ -36,10 +37,22 @@ function generateCheckoutHTML(){
         matchingProduct = product;
       }
     });
+
+    const deliveryOptionId = cartItem.deliveryOptionId;
+    let matchingDelivery;
+    deliveryOptions.forEach(option => {
+      if(option.id === deliveryOptionId){
+        matchingDelivery = option;
+        console.log(matchingDelivery);
+      }
+    });
+    const today = dayjs();
+    const deliveryDate  = today.add(matchingDelivery.deliveryDays,'days');
+    const formatedDate = deliveryDate.format('dddd, MMMM D');
     checkoutHTML += 
       `<div class="js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
-          Delivery date: Tuesday, June 21
+          Delivery date: ${formatedDate}
         </div>
 
       <div class="cart-item-details-grid">
@@ -78,49 +91,38 @@ function generateCheckoutHTML(){
           <div class="delivery-options-title">
             Choose a delivery option:
           </div>
-          <div class="delivery-option">
-            <input type="radio" checked
-              class="delivery-option-input"
-              name="delivery-option-${matchingProduct.id}">
-            <div>
-              <div class="delivery-option-date">
-                Tuesday, June 21
-              </div>
-              <div class="delivery-option-price">
-                FREE Shipping
-              </div>
-            </div>
-          </div>
-          <div class="delivery-option">
-            <input type="radio"
-              class="delivery-option-input"
-              name="delivery-option-${matchingProduct.id}">
-            <div>
-              <div class="delivery-option-date">
-                Wednesday, June 15
-              </div>
-              <div class="delivery-option-price">
-                $4.99 - Shipping
-              </div>
-            </div>
-          </div>
-          <div class="delivery-option">
-            <input type="radio"
-              class="delivery-option-input"
-              name="delivery-option-${matchingProduct.id}">
-            <div>
-              <div class="delivery-option-date">
-                Monday, June 13
-              </div>
-              <div class="delivery-option-price">
-                $9.99 - Shipping
-              </div>
-            </div>
-          </div>
+          ${deliveryOptionsHTML(matchingProduct,cartItem)}
         </div>
       </div>
     </div>`;
   });
+  
+  function deliveryOptionsHTML(matchingProduct,cartItem){
+    let generatedHTML='';
+    deliveryOptions.forEach((option) =>{
+      const today = dayjs();
+      const deliveryDate  = today.add(option.deliveryDays,'days');
+      const formatedDate = deliveryDate.format('dddd, MMMM D');
+      const priceStrings = option.priceCents === 0 ? 'FREE' : `$${formatCurrency(option.priceCents)} - Shipping`;
+      const isChecked = option.id === cartItem.deliveryOptionId;
+      generatedHTML +=
+      `<div class="delivery-option">
+        <input type="radio"
+          ${isChecked ? 'checked' : ''}
+          class="delivery-option-input"
+          name="delivery-option-${matchingProduct.id}">
+        <div>
+          <div class="delivery-option-date">
+            ${formatedDate}
+          </div>
+          <div class="delivery-option-price">
+            ${priceStrings}
+          </div>
+        </div>
+      </div>`;
+    })
+    return generatedHTML;
+  }
 
   document.querySelector('.order-summary').innerHTML = checkoutHTML;
 
@@ -128,6 +130,7 @@ function generateCheckoutHTML(){
   productQuantityUpdate();  // adds event listeners to update/delete quantity
   saveLinkEvent();        // adds event listeners to save button that gets created on click update
 }
+
 function updateCartQuantity(){ 
   let cartQuantity = calculateCartQuantity();     //cart.js function that calculates cart quantity
   if(cartQuantity === 0){
@@ -192,5 +195,7 @@ function updateInput(productId){
     generateCheckoutHTML();
   }
 }
+
+
 
 
