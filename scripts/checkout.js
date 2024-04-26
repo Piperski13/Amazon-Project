@@ -1,4 +1,9 @@
-import {cart,removeFromCart,calculateCartQuantity,updateQuantity} from "../data/cart.js";
+import {cart,
+  removeFromCart,
+  calculateCartQuantity,
+  updateQuantity,
+  updateDeliveryOptions}
+   from "../data/cart.js";
 import {products} from "../data/products.js"
 import {formatCurrency} from "./utils/money.js";
 import {deliveryOptions} from "../data/deliveryOptions.js"
@@ -43,7 +48,6 @@ function generateCheckoutHTML(){
     deliveryOptions.forEach(option => {
       if(option.id === deliveryOptionId){
         matchingDelivery = option;
-        console.log(matchingDelivery);
       }
     });
     const today = dayjs();
@@ -106,7 +110,9 @@ function generateCheckoutHTML(){
       const priceStrings = option.priceCents === 0 ? 'FREE' : `$${formatCurrency(option.priceCents)} - Shipping`;
       const isChecked = option.id === cartItem.deliveryOptionId;
       generatedHTML +=
-      `<div class="delivery-option">
+      `<div class="delivery-option js-delivery-option"
+      data-product-id="${matchingProduct.id}"
+      data-delivery-id="${option.id}">
         <input type="radio"
           ${isChecked ? 'checked' : ''}
           class="delivery-option-input"
@@ -129,6 +135,7 @@ function generateCheckoutHTML(){
   updateCartQuantity(); // updates cart quantity in header part of the checkout.html
   productQuantityUpdate();  // adds event listeners to update/delete quantity
   saveLinkEvent();        // adds event listeners to save button that gets created on click update
+  deliveryUpdate(); // adds interactive radio buttens / dates
 }
 
 function updateCartQuantity(){ 
@@ -194,6 +201,16 @@ function updateInput(productId){
     updateQuantity(productId,newQuantity);
     generateCheckoutHTML();
   }
+}
+function deliveryUpdate(){
+  document.querySelectorAll('.js-delivery-option').forEach(option=>{
+    option.addEventListener('click',()=>{
+      const productId = option.dataset.productId;
+      const deliveryOptionId = option.dataset.deliveryId;
+      updateDeliveryOptions(productId,deliveryOptionId);
+      generateCheckoutHTML();
+    })
+  })
 }
 
 
