@@ -176,6 +176,7 @@ export function renderOrderSummary(){
       deleteContainer(productId);
       updateQuantity(productId,newQuantity);
       renderOrderSummary();
+      renderPaymentSummary();
     }
     if(newQuantity>=1000 || newQuantity<0){
       alert('Error value');
@@ -184,6 +185,7 @@ export function renderOrderSummary(){
     else{
       updateQuantity(productId,newQuantity);
       renderOrderSummary();
+      renderPaymentSummary();
     }
   }
   function deliveryUpdate(){
@@ -193,6 +195,7 @@ export function renderOrderSummary(){
         const deliveryOptionId = option.dataset.deliveryId;
         updateDeliveryOptions(productId,deliveryOptionId);
         renderOrderSummary();
+        renderPaymentSummary(); // generates Payment box again
       })
     })
   }
@@ -203,7 +206,6 @@ export function renderOrderSummary(){
   productQuantityUpdate();  // adds event listeners to update/delete quantity
   saveLinkEvent();        // adds event listeners to save button that gets created on click update
   deliveryUpdate(); // adds interactive radio buttens / dates
-  renderPaymentSummary(); // generates Payment box again
 }
 
 
