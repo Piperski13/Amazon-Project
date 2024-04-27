@@ -8,15 +8,10 @@ import {products} from "../../data/products.js"
 import {formatCurrency} from "../utils/money.js";
 import {deliveryOptions} from "../../data/deliveryOptions.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"; //dayjs library
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 
-export function generateCheckoutHTML(){
-  const body = document.body;
-  body.addEventListener('click',(event)=>{
-    if(!event.target.matches('span') && !event.target.matches('input')){
-      generateCheckoutHTML();
-    }
-  });
+export function renderOrderSummary(){
   function keyboardEvent(productId){
     document.querySelectorAll('.quantity-imput').forEach((input)=>{
       input.addEventListener('keydown',(event)=>{
@@ -155,7 +150,7 @@ export function generateCheckoutHTML(){
   }
 
     //adds event listeners to all Save links and on click removes class that was previously set for container, gets value from input and turns it into a num, and the pass is it in cart.js
-    // and finnaly updates the page ( *generateCheckoutHTML() )
+    // and finnaly updates the page ( *renderOrderSummary() )
   function saveLinkEvent(){
     document.querySelectorAll('.js-save-link').forEach((link)=>{
       link.addEventListener('click',()=>{
@@ -172,6 +167,7 @@ export function generateCheckoutHTML(){
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
     updateCartQuantity();
+    renderPaymentSummary();
   }
   function updateInput(productId){
     const quantityImput = document.querySelector(`.js-quantity-imput-${productId}`)
@@ -179,15 +175,15 @@ export function generateCheckoutHTML(){
     if(newQuantity === 0){
       deleteContainer(productId);
       updateQuantity(productId,newQuantity);
-      generateCheckoutHTML();
+      renderOrderSummary();
     }
     if(newQuantity>=1000 || newQuantity<0){
       alert('Error value');
-      generateCheckoutHTML();
+      renderOrderSummary();
     }
     else{
       updateQuantity(productId,newQuantity);
-      generateCheckoutHTML();
+      renderOrderSummary();
     }
   }
   function deliveryUpdate(){
@@ -196,7 +192,7 @@ export function generateCheckoutHTML(){
         const productId = option.dataset.productId;
         const deliveryOptionId = option.dataset.deliveryId;
         updateDeliveryOptions(productId,deliveryOptionId);
-        generateCheckoutHTML();
+        renderOrderSummary();
       })
     })
   }
@@ -207,6 +203,7 @@ export function generateCheckoutHTML(){
   productQuantityUpdate();  // adds event listeners to update/delete quantity
   saveLinkEvent();        // adds event listeners to save button that gets created on click update
   deliveryUpdate(); // adds interactive radio buttens / dates
+  renderPaymentSummary(); // generates Payment box again
 }
 
 
