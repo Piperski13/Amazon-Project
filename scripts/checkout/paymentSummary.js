@@ -1,25 +1,32 @@
 import { calculateCartQuantity, cart } from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
+import { deliveryOptions } from "../../data/deliveryOptions.js"
 
 export function renderPaymentSummary(){
   let generatedHTML = '';
   let cartQuantity = calculateCartQuantity();
-  let totalCents=0;
+  let totalCents = 0;
+  let shippingCents = 0;
   cart.forEach(cartItem => {
     const productId = cartItem.productId;
     const productQuantity = cartItem.quantity;
+    const deliveryOptionId = cartItem.deliveryOptionId;
     products.forEach(product => {
       if(product.id === productId){
         let priceCents = product.priceCents
         totalCents += productQuantity * priceCents;
-        // console.log(productQuantity);
-        // console.log(priceCents);
-        // totalCents += priceCents;
+
+      }
+    });
+    deliveryOptions.forEach(option => {
+      if(option.id === deliveryOptionId){
+        shippingCents+=option.priceCents *productQuantity;
       }
     });
   });
-  console.log(totalCents);
+  shippingCents = shippingCents === 0 ? 'FREE' : `$${formatCurrency(shippingCents)}`;
+  console.log(shippingCents)
   generatedHTML = `
   <div class="payment-summary-title">
     Order Summary
@@ -32,7 +39,7 @@ export function renderPaymentSummary(){
 
   <div class="payment-summary-row">
     <div>Shipping &amp; handling:</div>
-    <div class="payment-summary-money">$4.99</div>
+    <div class="payment-summary-money">${shippingCents}</div>
   </div>
 
   <div class="payment-summary-row subtotal-row">
