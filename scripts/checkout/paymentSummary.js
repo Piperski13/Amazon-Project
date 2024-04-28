@@ -26,7 +26,6 @@ export function renderPaymentSummary(){
     });
   });
   shippingCents = shippingCents === 0 ? 'FREE' : `$${formatCurrency(shippingCents)}`;
-  console.log(shippingCents)
   generatedHTML = `
   <div class="payment-summary-title">
     Order Summary
