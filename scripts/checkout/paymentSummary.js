@@ -25,6 +25,12 @@ export function renderPaymentSummary(){
       }
     });
   });
+  const totalBeforeTax = shippingCents+totalCents;
+  const taxCents = totalBeforeTax * 0.1;
+  const totalAfterTax =  totalBeforeTax + taxCents
+  console.log(taxCents);
+  console.log(totalAfterTax);
+  
   shippingCents = shippingCents === 0 ? 'FREE' : `$${formatCurrency(shippingCents)}`;
   generatedHTML = `
   <div class="payment-summary-title">
@@ -43,17 +49,17 @@ export function renderPaymentSummary(){
 
   <div class="payment-summary-row subtotal-row">
     <div>Total before tax:</div>
-    <div class="payment-summary-money">$47.74</div>
+    <div class="payment-summary-money">$${formatCurrency(totalBeforeTax)}</div>
   </div>
 
   <div class="payment-summary-row">
     <div>Estimated tax (10%):</div>
-    <div class="payment-summary-money">$4.77</div>
+    <div class="payment-summary-money">$${formatCurrency(taxCents)}</div>
   </div>
 
   <div class="payment-summary-row total-row">
     <div>Order total:</div>
-    <div class="payment-summary-money">$52.51</div>
+    <div class="payment-summary-money">$${formatCurrency(totalAfterTax)}</div>
   </div>
 
   <button class="place-order-button button-primary">
