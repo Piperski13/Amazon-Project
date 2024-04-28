@@ -129,12 +129,25 @@ export function renderOrderSummary(){
       document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
     }
   };
+
   function productQuantityUpdate(){
+    const confirmYes = document.querySelector('.confirm-window-yes');
+    const confirmNo = document.querySelector('.confirm-window-no');
+
     //event Listener for a delete button
     document.querySelectorAll('.js-delete-link').forEach((link)=>{
       link.addEventListener('click',()=>{
         const productId = link.dataset.productId;
-        deleteContainer(productId);
+        const confirmWindow = document.getElementById('delete-confirm');
+        confirmWindow.classList.toggle('confirm-hidden');
+        
+        confirmYes.addEventListener('click',()=>{
+          deleteContainer(productId);
+          confirmWindow.classList.toggle('confirm-hidden');
+        })
+        confirmNo.addEventListener('click',()=>{
+          confirmWindow.classList.toggle('confirm-hidden');
+        })
       });
     });
   

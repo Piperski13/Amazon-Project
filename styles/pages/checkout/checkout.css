@@ -226,6 +226,9 @@
   display: initial;
 }
 /* checkout update/input end */
+.confirm-hidden{
+  display: none;
+}
 .confirm-window{
   z-index: 1001;
   position: fixed;
@@ -254,6 +257,7 @@
   padding: 13px 27px;
   font-size: 20px;
   font-family: bold;
+  border-radius: 13px;
 }
 .confirm-window-yes{
   margin-right: 30px;
