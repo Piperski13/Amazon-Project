@@ -6,10 +6,9 @@ import {cart,
    from "../../data/cart.js";
 import {products} from "../../data/products.js"
 import {formatCurrency} from "../utils/money.js";
-import {deliveryOptions} from "../../data/deliveryOptions.js"
+import {deliveryOptions,calculateDeliveryDate} from "../../data/deliveryOptions.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"; //dayjs library
 import { renderPaymentSummary } from "./paymentSummary.js";
-
 
 export function renderOrderSummary(){
   function keyboardEvent(productId){
@@ -41,9 +40,7 @@ export function renderOrderSummary(){
         matchingDelivery = option;
       }
     });
-    const today = dayjs();
-    const deliveryDate  = today.add(matchingDelivery.deliveryDays,'days');
-    const formatedDate = deliveryDate.format('dddd, MMMM D');
+    const formatedDate = calculateDeliveryDate(matchingDelivery.deliveryDays);
     checkoutHTML += 
       `<div class="js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
@@ -95,9 +92,7 @@ export function renderOrderSummary(){
   function deliveryOptionsHTML(matchingProduct,cartItem){
     let generatedHTML='';
     deliveryOptions.forEach((option) =>{
-      const today = dayjs();
-      const deliveryDate  = today.add(option.deliveryDays,'days');
-      const formatedDate = deliveryDate.format('dddd, MMMM D');
+      const formatedDate = calculateDeliveryDate(option.deliveryDays);
       const priceStrings = option.priceCents === 0 ? 'FREE' : `$${formatCurrency(option.priceCents)} - Shipping`;
       const isChecked = option.id === cartItem.deliveryOptionId;
       generatedHTML +=
@@ -152,7 +147,7 @@ export function renderOrderSummary(){
           confirmYes.removeEventListener('click',handleConfirmYes);
           confirmNo.removeEventListener('click',handleConfirmNo);
         }
-        
+
         confirmYes.addEventListener('click',handleConfirmYes);
         confirmNo.addEventListener('click',handleConfirmNo);
       });
