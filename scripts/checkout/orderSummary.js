@@ -140,14 +140,20 @@ export function renderOrderSummary(){
         const productId = link.dataset.productId;
         const confirmWindow = document.getElementById('delete-confirm');
         confirmWindow.classList.toggle('confirm-hidden');
-        
-        confirmYes.addEventListener('click',()=>{
+
+        function handleConfirmYes(){
           deleteContainer(productId);
           confirmWindow.classList.toggle('confirm-hidden');
-        })
-        confirmNo.addEventListener('click',()=>{
+          confirmYes.removeEventListener('click',handleConfirmYes);
+          confirmNo.removeEventListener('click',handleConfirmNo);
+        }
+        function handleConfirmNo(){
           confirmWindow.classList.toggle('confirm-hidden');
-        })
+          confirmYes.removeEventListener('click',handleConfirmYes);
+          confirmNo.removeEventListener('click',handleConfirmNo);
+        }
+        confirmYes.addEventListener('click',handleConfirmYes);
+        confirmNo.addEventListener('click',handleConfirmNo);
       });
     });
   
