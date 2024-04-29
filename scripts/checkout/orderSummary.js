@@ -152,6 +152,7 @@ export function renderOrderSummary(){
           confirmYes.removeEventListener('click',handleConfirmYes);
           confirmNo.removeEventListener('click',handleConfirmNo);
         }
+        
         confirmYes.addEventListener('click',handleConfirmYes);
         confirmNo.addEventListener('click',handleConfirmNo);
       });
