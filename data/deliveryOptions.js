@@ -18,9 +18,25 @@ export const deliveryOptions = [
   }
 ];
 
+function isWeekend(date) {
+  const dayOfWeek = date.format('dddd');
+  return dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
+}
+
 export function calculateDeliveryDate(deliveryOption){
-  const today = dayjs();
-  const deliveryDate  = today.add(deliveryOption,'days');
-  const formatedDate = deliveryDate.format('dddd, MMMM D');
-  return formatedDate;
+  let remainingDays = deliveryOption; //its equal to 7 or 3 or 1
+  let deliveryDate = dayjs();
+  while (remainingDays > 0) {
+    deliveryDate = deliveryDate.add(1, 'day');
+
+    if (!isWeekend(deliveryDate)) {
+      remainingDays--;
+    }
+  }
+
+  const dateString = deliveryDate.format(
+    'dddd, MMMM D'
+  );
+
+  return dateString;
 }

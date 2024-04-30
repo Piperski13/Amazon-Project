@@ -222,9 +222,3 @@ export function renderOrderSummary(){
   saveLinkEvent();        // adds event listeners to save button that gets created on click update
   deliveryUpdate(); // adds interactive radio buttens / dates
 }
-
-
-
-
-
-

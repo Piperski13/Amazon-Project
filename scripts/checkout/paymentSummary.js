@@ -28,8 +28,6 @@ export function renderPaymentSummary(){
   const totalBeforeTax = shippingCents+totalCents;
   const taxCents = totalBeforeTax * 0.1;
   const totalAfterTax =  totalBeforeTax + taxCents
-  console.log(taxCents);
-  console.log(totalAfterTax);
   
   shippingCents = shippingCents === 0 ? 'FREE' : `$${formatCurrency(shippingCents)}`;
   generatedHTML = `
