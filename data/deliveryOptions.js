@@ -22,7 +22,7 @@ function isWeekend(date) {
   const dayOfWeek = date.format('dddd');
   return dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
 }
-
+//if its weekend skip it and return the value of delivery date 
 export function calculateDeliveryDate(deliveryOption){
   let remainingDays = deliveryOption; //its equal to 7 or 3 or 1
   let deliveryDate = dayjs();
