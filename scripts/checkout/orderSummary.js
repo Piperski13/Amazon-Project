@@ -88,7 +88,7 @@ export function renderOrderSummary(){
       </div>
     </div>`;
   });
-  
+  //generates delivery html
   function deliveryOptionsHTML(matchingProduct,cartItem){
     let generatedHTML='';
     deliveryOptions.forEach((option) =>{
