@@ -10,4 +10,7 @@ describe('case suite: formatCurrency',()=>{
   it('tests edge case, round up cents',()=>{
     expect(formatCurrency(2000.5)).toEqual('20.01');
   });
+  it('tests edge case, round down cents',()=>{
+    expect(formatCurrency(2000.4)).toEqual('20.00');
+  });
 });
