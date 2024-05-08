@@ -8,6 +8,7 @@ describe('test suite: addToCart',()=>{
   afterEach(()=>{
     document.querySelector('.test-container').innerHTML = ``;
   })
+  
   it('adds an existing product to the cart', () => {
     spyOn(localStorage, 'getItem').and.callFake(() => {
       return JSON.stringify([{
