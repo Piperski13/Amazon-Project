@@ -27,8 +27,10 @@ describe('test suite: renderOrderSummary',()=>{
     document.querySelector('.test-container').innerHTML=``;
   })
   it('check orderSummary rendering on screen',()=>{
-   
-
+   expect(cart[0].productId).toEqual(productId1);
+   expect(cart[1].productId).toEqual(productId2);
+   expect(cart[0].quantity).toEqual(2);
+   expect(cart[1].deliveryOptionId).toEqual('2')
   });
 });
 
