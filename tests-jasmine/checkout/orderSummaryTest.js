@@ -28,9 +28,10 @@ describe('test suite: renderOrderSummary',()=>{
   })
   it('check orderSummary rendering on screen',()=>{
    expect(cart[0].productId).toEqual(productId1);
-   expect(cart[1].productId).toEqual(productId2);
    expect(cart[0].quantity).toEqual(2);
-   expect(cart[1].deliveryOptionId).toEqual('2')
+   expect(cart[0].deliveryOptionId).toEqual('3');
+   expect(document.querySelectorAll('.js-test-cart-item-container').length).toEqual(2);
+   expect(document.querySelector(`.js-test-product-name-${productId1}`).innerText).toEqual('Black and Gray Athletic Cotton Socks - 6 Pairs');
   });
 });
 

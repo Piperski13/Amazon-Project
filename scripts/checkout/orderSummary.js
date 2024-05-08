@@ -42,7 +42,9 @@ export function renderOrderSummary(){
     });
     const formatedDate = calculateDeliveryDate(matchingDelivery.deliveryDays);
     checkoutHTML += 
-      `<div class="js-cart-item-container-${matchingProduct.id}">
+    `<div class="js-cart-item-container-${matchingProduct.id} 
+      js-test-cart-item-container">
+
         <div class="delivery-date">
           Delivery date: ${formatedDate}
         </div>
@@ -52,7 +54,7 @@ export function renderOrderSummary(){
           src="${matchingProduct.image}">
 
         <div class="cart-item-details">
-          <div class="product-name">
+          <div class="product-name js-test-product-name-${matchingProduct.id}">
             ${matchingProduct.name}
           </div>
           <div class="product-price">
