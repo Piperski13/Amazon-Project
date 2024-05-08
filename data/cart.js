@@ -33,7 +33,7 @@ export function addToCart(productId){
         }
       });
                     //gets value of drop down quantity and stores it
-      let quantityString = document.querySelector(`.js-quantity-selector-${productId}`).value;
+      let quantityString = document.querySelector(`.js-quantity-selector-${productId}`).value
       let quantity = Number(quantityString);         //DOM retruns string always, so make it num
     
       if(matchingItem){              //if matchingItem exsits its making this statemant true thus
