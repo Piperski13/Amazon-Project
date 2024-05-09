@@ -25,9 +25,9 @@ describe('test suite: renderOrderSummary',()=>{
     loadFromStorage();
     renderOrderSummary();
   });
-  // afterEach(()=>{
-  //   document.querySelector('.test-container').innerHTML=``;
-  // })
+  afterEach(()=>{
+    document.querySelector('.test-container').innerHTML=``;
+  })
   it('check orderSummary rendering on screen',()=>{
    expect(cart[0].productId).toEqual(productId1);
    expect(cart[0].quantity).toEqual(2);
