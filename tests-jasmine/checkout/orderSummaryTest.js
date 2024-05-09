@@ -1,5 +1,6 @@
 import {cart, loadFromStorage} from "../../data/cart.js";
 import {renderOrderSummary} from "../../scripts/checkout/orderSummary.js";
+import {renderPaymentSummary} from '../../scripts/checkout/paymentSummary.js';
 describe('test suite: renderOrderSummary',()=>{
   const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
   const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
@@ -55,8 +56,17 @@ describe('test suite: renderOrderSummary',()=>{
     document.querySelector(`.js-delete-test-${productId2}`).click();
     document.querySelector('.confirm-window-yes').click();
     expect(cart.length).toEqual(0);
-    
+
     expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(0);
+  });
+  it('updating delivery option',()=>{
+    document.querySelector(`.js-test-delivery-option-${productId1}-${3}`).click();
+    expect(document.querySelector(`.js-test-delivery-option-input-${productId1}-${3}`).checked).toBe(true);
+
+    renderPaymentSummary();
+    expect(document.querySelector('.js-test-shipping-price').innerText).toEqual('$24.97');
+    expect(document.querySelector('.js-test-total-price').innerText).toEqual('$74.49');
   })
+
 });
 

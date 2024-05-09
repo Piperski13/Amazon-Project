@@ -99,12 +99,14 @@ export function renderOrderSummary(){
       const priceStrings = option.priceCents === 0 ? 'FREE' : `$${formatCurrency(option.priceCents)} - Shipping`;
       const isChecked = option.id === cartItem.deliveryOptionId;
       generatedHTML +=
-      `<div class="delivery-option js-delivery-option"
+      `<div class="delivery-option js-delivery-option
+      js-test-delivery-option-${matchingProduct.id}-${option.id}"
       data-product-id="${matchingProduct.id}"
       data-delivery-id="${option.id}">
         <input type="radio"
           ${isChecked ? 'checked' : ''}
-          class="delivery-option-input"
+          class="delivery-option-input 
+          js-test-delivery-option-input-${matchingProduct.id}-${option.id}"
           name="delivery-option-${matchingProduct.id}">
         <div>
           <div class="delivery-option-date">
