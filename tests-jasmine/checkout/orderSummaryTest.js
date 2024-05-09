@@ -8,6 +8,7 @@ describe('test suite: renderOrderSummary',()=>{
     document.querySelector('.test-container').innerHTML=`
     <div class="order-summary"></div>
     <div class="js-return-to-home-link"></div>
+    <div class="js-payment-summary"></div>
     `
     spyOn(localStorage,'getItem').and.callFake(()=>{
       return JSON.stringify([{
@@ -43,7 +44,19 @@ describe('test suite: renderOrderSummary',()=>{
    expect(document.querySelector(`.js-test-product-price-${productId2}`).innerText).toEqual('$20.95');
   });
   it('removes a product',()=>{
+    document.querySelector(`.js-delete-test-${productId1}`).click();
+    document.querySelector('.confirm-window-no').click();
+    expect(cart.length).toEqual(2);
+
+    document.querySelector(`.js-delete-test-${productId1}`).click();
+    document.querySelector('.confirm-window-yes').click();
+    expect(cart.length).toEqual(1);
+
+    document.querySelector(`.js-delete-test-${productId2}`).click();
+    document.querySelector('.confirm-window-yes').click();
+    expect(cart.length).toEqual(0);
     
+    expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(0);
   })
 });
 
