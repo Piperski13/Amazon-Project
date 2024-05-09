@@ -139,10 +139,11 @@ export function renderOrderSummary(){
         confirmWindow.classList.toggle('confirm-hidden');
 
         function handleConfirmYes(){
-          deleteContainer(productId);
+          
           confirmWindow.classList.toggle('confirm-hidden');
           confirmYes.removeEventListener('click',handleConfirmYes);
           confirmNo.removeEventListener('click',handleConfirmNo);
+          deleteContainer(productId);
         }
         function handleConfirmNo(){
           confirmWindow.classList.toggle('confirm-hidden');

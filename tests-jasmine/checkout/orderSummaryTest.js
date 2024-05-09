@@ -23,9 +23,9 @@ describe('test suite: renderOrderSummary',()=>{
     loadFromStorage();
     renderOrderSummary();
   });
-  afterEach(()=>{
-    document.querySelector('.test-container').innerHTML=``;
-  })
+  // afterEach(()=>{
+  //   document.querySelector('.test-container').innerHTML=``;
+  // })
   it('check orderSummary rendering on screen',()=>{
    expect(cart[0].productId).toEqual(productId1);
    expect(cart[0].quantity).toEqual(2);
@@ -42,5 +42,8 @@ describe('test suite: renderOrderSummary',()=>{
    expect(document.querySelector(`.js-test-product-quantity-${productId2}`).innerText).toContain('Quantity: 1');
    expect(document.querySelector(`.js-test-product-price-${productId2}`).innerText).toEqual('$20.95');
   });
+  it('removes a product',()=>{
+    
+  })
 });
 

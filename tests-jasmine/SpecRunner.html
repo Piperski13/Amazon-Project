@@ -6,6 +6,7 @@
 
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-5.1.1/jasmine_favicon.png">
   <link rel="stylesheet" href="lib/jasmine-5.1.1/jasmine.css">
+  <link rel="stylesheet" href="specStyles.css">
 
   <script src="lib/jasmine-5.1.1/jasmine.js"></script>
   <script src="lib/jasmine-5.1.1/jasmine-html.js"></script>
@@ -20,6 +21,15 @@
 </head>
 
 <body>
+  <div id="delete-confirm" class="confirm-hidden js-confirm-window">
+    <div class="confirm-window">
+      <div>
+        <p>Remove from cart?</p>
+        <button class="confirm-window-yes">Yes</button>
+        <button class="confirm-window-no">No</button>
+      </div>
+    </div>
+  </div>
   <div class="test-container"></div>
 </body>
 </html>
