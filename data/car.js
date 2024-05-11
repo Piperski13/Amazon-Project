@@ -79,13 +79,13 @@ raceCar1.go();
 raceCar1.go();
 raceCar1.go();
 raceCar1.openTrunk();
-car1.brand = 'Yugo'
+
 
 const car1Info = car1.displayInfo();
 const car2Info = car2.displayInfo();
 const raceCar1Info = raceCar1.displayInfo();
 
-console.log(car1Info);
-console.log(car2Info);
-console.log('--------------------------');
-console.log(raceCar1Info);
+// console.log(car1Info);
+// console.log(car2Info);
+// console.log('--------------------------');
+// console.log(raceCar1Info);
