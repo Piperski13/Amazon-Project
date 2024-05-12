@@ -17,7 +17,10 @@ describe('test Product class',()=>{
         "apparel"
       ]
     });
-  })
+  });
+  afterEach(()=>{
+    document.querySelector('.test-container').innerHTML=``;
+  });
   it('product class test:',()=>{
     expect(product.id).toEqual("e43638ce-6aa0-4b85-b27f-e1d07eb678c6");
     expect(product.priceCents).toEqual(1090);
@@ -56,7 +59,10 @@ describe('test Clothing class:',()=>{
         type: "clothing",
         sizeChartLink: "images/clothing-size-chart.png"
       });
-  })
+  });
+  afterEach(()=>{
+    document.querySelector('.test-container').innerHTML=``;
+  });
   it('clothing class test:',()=>{
     expect(clothing.id).toEqual("83d4ca15-0f35-48f5-b7a3-1ea210004f2e");
     expect(clothing.name).toEqual("Adults Plain Cotton T-Shirt - 2 Pack");
@@ -89,7 +95,10 @@ describe('test Appliance class:',()=>{
       instructionsLink: "images/appliance-instructions.png",
       warrantyLink: "images/appliance-warranty.png"
     });
-  })
+  });
+  afterEach(()=>{
+    document.querySelector('.test-container').innerHTML=``;
+  });
   it('appliance class test:',()=>{
     expect(appliance.id).toEqual("54e0eccd-8f36-462b-b68a-8182611d9add");
     expect(appliance.name).toEqual("2 Slot Toaster - Black");
