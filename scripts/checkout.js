@@ -9,6 +9,23 @@ import { loadCart } from "../data/cart.js"
 // import "../data/cart-oop.js"
 // import "../data/cart-class.js"
 
+async function loadPage(){
+
+  await loadProductsFetch();
+
+  const value = await new Promise((resolve)=>{
+    loadCart(()=>{
+      resolve('value1');
+    });
+  });
+
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+};
+loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),      //returns a promise therefore we dont need to create one
   new Promise((resolve)=>{
@@ -22,6 +39,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 })
+*/
 
 // Promise.all([
 //   new Promise((resolve)=>{
