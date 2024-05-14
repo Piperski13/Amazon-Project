@@ -21,9 +21,7 @@ function renderTrackingPage(){
   orders.forEach(order => {
     if(order.id === madeOrderId){
       matchingOrder = order;
-
-      console.log(matchingOrder);
-
+      
       matchingOrder.products.forEach(productOrder => {
         if(productOrder.productId === productOrderId){
           matchingOrder = productOrder;
