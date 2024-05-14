@@ -8,6 +8,14 @@ export function renderDateOrder(orderDate){
 return dataStringFormat;
 };
 
+export function renderDateOrderTracking(orderDate){
+  let dataString = dayjs(orderDate);
+  const dataStringFormat = dataString.format(
+    'dddd, MMMM D'
+  );
+return dataStringFormat;
+};
+
 
 
 

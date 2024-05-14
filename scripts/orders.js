@@ -49,7 +49,7 @@ function renderOrderSummary(){
             </div>
 
             <div class="product-actions">
-              <a href="tracking.html?orderid=123&productId=456">
+              <a href="tracking.html?orderId=${order.id}&productId=${matchingProduct.id}">
                 <button class="track-package-button button-secondary">
                   Track package
                 </button>
@@ -105,8 +105,8 @@ function renderOrderSummary(){
   }
 };
 
-// console.log(orders); // number of orders
+console.log(orders); // number of orders
 // console.log(orders[1].products); //index 1 all products array
-// console.log(orders[0].products[0].productId);
+console.log(orders[0].products[0].productId);
 
 
