@@ -2,29 +2,25 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from "./checkout/checkoutHeder.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js"
-import { loadCart } from "../data/cart.js"
+import { loadCartFetch } from "../data/cart.js"
 
 // import '../data/backend-practice.js';
 // import '../data/car.js';
 // import "../data/cart-oop.js"
 // import "../data/cart-class.js"
 
+
 async function loadPage(){
   try {
-    // throw 'error1'
-    await loadProductsFetch();
 
-    const value = await new Promise((resolve,reject)=>{
-      // throw 'error2'
-      loadCart(()=>{
-        // reject('error3'); since throw does not work in the future, we use reject;
-        resolve('value1');
-      });
-    });
-
+    await Promise.all([
+      loadProductsFetch(),
+      loadCartFetch()
+    ]);
+    
   } catch (error) {
     console.log('ERROR, try later');
-    // console.log(error);  = if throw error = error1;
+    console.log(error);
   }
   
   renderCheckoutHeader();
