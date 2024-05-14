@@ -26,6 +26,8 @@ function saveToStorage(){
 
 export function addToCart(productId){
   let matchingItem;           //boolean value
+  let quantity;
+  let quantitySelector;
       
       cart.forEach((cartItem)=>{              //when button clicked goe trough cart.js[], and if 
         if(productId === cartItem.productId ){    //it exists set item to matching item
@@ -33,8 +35,14 @@ export function addToCart(productId){
         }
       });
                     //gets value of drop down quantity and stores it
-      let quantityString = document.querySelector(`.js-quantity-selector-${productId}`).value
-      let quantity = Number(quantityString);         //DOM retruns string always, so make it num
+      let quantityString = document.querySelector(`.js-quantity-selector-${productId}`);
+      if(quantityString){
+        quantitySelector = quantityString.value
+        quantity = Number(quantitySelector);         //DOM retruns string always, so make it num
+      }else{
+        quantity=1;
+      }
+      
     
       if(matchingItem){              //if matchingItem exsits its making this statemant true thus
         matchingItem.quantity+=quantity;     // it only increases its quantity and skips cart.push
