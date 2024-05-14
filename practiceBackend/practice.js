@@ -47,10 +47,42 @@
 //------------------------------------------------------------------------------------------------
 
 // async function loadAmazon(){
-//   const response = fetch('https://amazon.com');
-//   const text = await response.text();
-//   console.log(text);
+//   try {
+//     const response = fetch('https://amazon.com');
+//     const text = await response.text();
+//     console.log(text);
+//   } catch (error) {
+//     console.log('CORS error');
+//   }
+  
 // };
 // loadAmazon();
+
+//------------------------------------------------------------------------------------------------
+
+// async function loadPage(){
+//   try {
+//     const response = await fetch('https://supersimplebackend.dev/greeting',{
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+//     if(response.status >= 400){
+//       throw response;
+//     }
+//     const test = await response.json();
+//     console.log(test);
+
+//   } catch (error) {
+//     if (error.status === 400) {
+//       const errorMessage = await error.json();
+//       console.log(errorMessage);
+//     } else {
+//       console.log('Network error. Please try again later.');
+//     };
+//   };
+// };
+// loadPage();
 
 //------------------------------------------------------------------------------------------------
