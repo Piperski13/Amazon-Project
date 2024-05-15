@@ -7,9 +7,22 @@ loadProducts(renderProductsGrid);
 function renderProductsGrid(){
 
   updateCartQuantity();
+
   let productsHTML = '';
+
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get('search');
+
+  let filteredProducts = products;
+
+  if(search){
+    filteredProducts = products.filter((product)=>{
+      return product.name.includes(search);
+    });
+  };
+
   //gets products from products.js and generates html 
-  products.forEach((product)=>{
+  filteredProducts.forEach((product)=>{
     productsHTML += `
       <div class="product-container">
       <div class="product-image-container">
@@ -64,6 +77,11 @@ function renderProductsGrid(){
   });
 
   document.querySelector('.js-product-container').innerHTML = productsHTML;
+
+  document.querySelector('.js-search-button').addEventListener('click',()=>{
+    const search = document.querySelector('.js-search-bar').value;
+    window.location.href = `amazon.html?search=${search}`;
+  })
 
   function updateCartQuantity(){        
     let cartQuantity = calculateCartQuantity();   //cart.js function that calculates cart quantity
