@@ -16,6 +16,13 @@ export function renderDateOrderTracking(orderDate){
 return dataStringFormat;
 };
 
+export function progressBar(order,delivery){
+  let currentTime = dayjs();
+  let orderTime = dayjs(order);
+  let deliveryTime = dayjs(delivery);
+  const percentProggress = (currentTime - orderTime) / (deliveryTime - orderTime) * 100;
+  return percentProggress;
+}
 
 
 

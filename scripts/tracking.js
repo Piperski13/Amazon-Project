@@ -1,27 +1,31 @@
 import {products,loadProductsFetch} from '../data/products.js';
 import {orders} from '../data/orders.js';
-import {renderDateOrderTracking} from './utils/date.js';
+import {renderDateOrderTracking,progressBar} from './utils/date.js';
 
 const url = new URL(window.location.href);
 console.log(url.searchParams.get('orderId'));
 console.log(url.searchParams.get('productId'));
 
-loadProductsFetch().then(()=>{
-  renderTrackingPage();
-})
+// loadProductsFetch().then(()=>{
+//   renderTrackingPage();
+// })
 
+async function renderTrackingPage(){
+  await loadProductsFetch();
 
-function renderTrackingPage(){
   let matchingProduct;
   let matchingOrder;
+  let matchingOrderDate;
 
   const madeOrderId = url.searchParams.get('orderId');
   const productOrderId = url.searchParams.get('productId');
 
   orders.forEach(order => {
     if(order.id === madeOrderId){
+
       matchingOrder = order;
-      
+      matchingOrderDate = order;
+
       matchingOrder.products.forEach(productOrder => {
         if(productOrder.productId === productOrderId){
           matchingOrder = productOrder;
@@ -30,12 +34,14 @@ function renderTrackingPage(){
     }
   });
     
-      products.forEach(product => {
-        if(product.id === productOrderId ){
-          matchingProduct = product;
-        }
-      });
-    
+  products.forEach(product => {
+    if(product.id === productOrderId ){
+      matchingProduct = product;
+    }
+  });
+
+  const progressionDelivery = progressBar(matchingOrderDate.orderTime,matchingOrder.estimatedDeliveryTime);
+
   let generatedHTML = `
      <div class="order-tracking">
         <a class="back-to-orders-link link-primary" href="orders.html">
@@ -57,21 +63,25 @@ function renderTrackingPage(){
         <img class="product-image" src="${matchingProduct.image}">
 
         <div class="progress-labels-container">
-          <div class="progress-label">
+          <div class="progress-label ${progressionDelivery <=49 ? 'current-status' : '' }" >
             Preparing
           </div>
-          <div class="progress-label current-status">
+          <div class="progress-label 
+          ${progressionDelivery >49 && progressionDelivery <=99 ? 'current-status' : '' }">
             Shipped
           </div>
-          <div class="progress-label">
+          <div class="progress-label ${progressionDelivery >=100 ? 'current-status' : '' }">
             Delivered
           </div>
         </div>
 
         <div class="progress-bar-container">
-          <div class="progress-bar"></div>
+          <div class="progress-bar" 
+          style="
+          width:${progressionDelivery}%"></div>
         </div>
       </div>
   `;
   document.querySelector('.main').innerHTML = generatedHTML;
-}
+};
+renderTrackingPage();

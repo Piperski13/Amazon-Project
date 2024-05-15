@@ -105,7 +105,7 @@ function renderOrderSummary(){
   }
 };
 
-// console.log(orders); // number of orders
+console.log(orders); // number of orders
 // console.log(orders[1].products); //index 1 all products array
 // console.log(orders[0].products[0].productId);
 
