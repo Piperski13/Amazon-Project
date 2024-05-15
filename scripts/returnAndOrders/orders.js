@@ -1,8 +1,8 @@
-import {orders} from '../data/orders.js';
-import {formatCurrency} from './utils/money.js';
-import {renderDateOrder} from './utils/date.js';
-import {loadProducts,loadProductsFetch,products} from '../data/products.js';
-import {addToCart, calculateCartQuantity} from '../data/cart.js';
+import {orders} from '../../data/orders.js';
+import {formatCurrency} from '../utils/money.js';
+import {renderDateOrder} from '../utils/date.js';
+import {loadProducts,loadProductsFetch,products} from '../../data/products.js';
+import {addToCart, calculateCartQuantity} from '../../data/cart.js';
 
 loadProductsFetch().then(()=>{          //fetch, returns promise, method then
   renderOrderSummary();

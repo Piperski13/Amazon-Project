@@ -1,6 +1,7 @@
-import {products,loadProductsFetch} from '../data/products.js';
-import {orders} from '../data/orders.js';
-import {renderDateOrderTracking,progressBar} from './utils/date.js';
+import {products,loadProductsFetch} from '../../data/products.js';
+import {orders} from '../../data/orders.js';
+import {renderDateOrderTracking,progressBar} from '../utils/date.js';
+import {calculateCartQuantity} from "../../data/cart.js"
 
 const url = new URL(window.location.href);
 console.log(url.searchParams.get('orderId'));
@@ -83,5 +84,14 @@ async function renderTrackingPage(){
       </div>
   `;
   document.querySelector('.main').innerHTML = generatedHTML;
+  updateCartQuantity();
+
+  function updateCartQuantity(){        
+    let cartQuantity = calculateCartQuantity();   //cart.js function that calculates cart quantity
+    if(!cartQuantity){          //essentialy break a function if cartQuantity undefined
+      return;
+    }
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  }
 };
 renderTrackingPage();
