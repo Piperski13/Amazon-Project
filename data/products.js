@@ -103,7 +103,7 @@ export function loadProducts(fun){
     console.log('Unexpected error, please try again later.');
   })
 
-  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.open('GET','http://127.0.0.1:3000/amazon.html');
   xhr.send();
 };
 /*
