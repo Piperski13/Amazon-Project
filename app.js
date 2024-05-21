@@ -42,7 +42,6 @@ app.post('/amazon.html',(req,res)=>{
   let order = cart.map(cartItem =>{
     const itemNumberOption = parseInt(cartItem.deliveryOptionId);
     const finalOption = deliveryOptions[itemNumberOption-1];
-    console.log(finalOption);
     const estimatedDeliveryTime = dayjs().add(finalOption.deliveryDays,'days').toISOString();
     return {
       productId: cartItem.productId,
