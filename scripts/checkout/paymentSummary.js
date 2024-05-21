@@ -68,14 +68,12 @@ export function renderPaymentSummary(){
   
   document.querySelector('.js-place-order').addEventListener('click', async ()=>{
     try {
-      const response = await fetch('https://supersimplebackend.dev/orders',{
+      const response = await fetch('http://127.0.0.1:3000/amazon.html',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        cart: cart
-      })
+      body: JSON.stringify(cart)
     });
     const order = await response.json();
     addOrder(order);
