@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Orders</title>
+    <title>Amazon Project</title>
 
     <!-- This code is needed for responsive design to work.
       (Responsive design = make the website look good on
@@ -16,7 +16,7 @@
     <!-- Here are the CSS files for this page. -->
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
-    <link rel="stylesheet" href="styles/pages/orders.css">
+    <link rel="stylesheet" href="styles/pages/amazon.css">
   </head>
   <body>
     <div class="amazon-header">
@@ -30,9 +30,9 @@
       </div>
 
       <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
+        <input class="search-bar js-search-bar" type="text" placeholder="Search">
 
-        <button class="search-button">
+        <button class="search-button js-search-button">
           <img class="search-icon" src="images/icons/search-icon.png">
         </button>
       </div>
@@ -50,14 +50,14 @@
         </a>
       </div>
     </div>
-
+    
     <div class="main">
-      <div class="page-title">Your Orders</div>
-
-      <div class="orders-grid js-orders-grid">
-       
+      <div class="products-grid js-product-container">
+        
       </div>
     </div>
-    <script src="./scripts/returnAndOrders/orders.js" type="module"></script>
+    
+    <script type="module" src="/scripts/amazon.js"></script> 
+    <!-- modules work only on live server -->
   </body>
 </html>
