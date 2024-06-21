@@ -1,6 +1,6 @@
-import { renderOrderSummary } from "./checkout/orderSummary.js";
-import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { renderCheckoutHeader } from "./checkout/checkoutHeder.js";
+import { renderOrderSummary } from "../scripts/checkout/orderSummary.js";
+import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
+import { renderCheckoutHeader } from "../scripts/checkout/checkoutHeder.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js"
 import { loadCartFetch } from "../data/cart.js"
 

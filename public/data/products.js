@@ -57,7 +57,7 @@ export class Appliance extends Product{
 export let products = [];
 
 export function loadProductsFetch(){
-  const promise = fetch('http://127.0.0.1:3000/amazon.html').then((response)=>{
+  const promise = fetch('http://127.0.0.1:3000/products').then((response)=>{
     return response.json();
   }).then((productDetails)=>{
     products = productDetails.map((productDetails)=>{
