@@ -1,4 +1,4 @@
-import {formatCurrency} from "../scripts/utils/money.js";
+import {formatCurrency} from "../utils/money.js";
 export class Product{
   id;
   image;
@@ -103,7 +103,7 @@ export function loadProducts(fun){
     console.log('Unexpected error, please try again later.');
   })
 
-  xhr.open('GET','http://127.0.0.1:3000/amazon.html');
+  xhr.open('GET','http://127.0.0.1:3000/products');
   xhr.send();
 };
 /*
