@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const dayjs = require('dayjs');
+const path = require('path');
 const { v4: uuidv4 } = require('uuid'); // id generator package
 const deliveryOptions = require('./backend/deliveryOptions.js');
 
@@ -11,10 +12,16 @@ const app = express();
 app.use(express.json()); //middleware
 app.use(cors()); //middleware
 
+app.use(express.static(path.join(__dirname,'public')));
+
 
 const products = JSON.parse(fs.readFileSync('./backend/products.json','utf-8'));
 
-app.get('/amazon.html',(req,res)=>{
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'amazon.html'));
+});
+
+app.get('/products',(req,res)=>{
   res.status(200).json(products)
 });
 
