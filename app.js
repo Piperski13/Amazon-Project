@@ -25,6 +25,10 @@ app.get('/checkout', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'checkout.html'));
 });
 
+app.get('/orders', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'orders.html'));
+});
+
 app.get('/products',(req,res)=>{
   res.status(200).json(products)
 });

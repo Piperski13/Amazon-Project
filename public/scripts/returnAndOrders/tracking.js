@@ -1,6 +1,6 @@
 import {products,loadProductsFetch} from '../../data/products.js';
 import {orders} from '../../data/orders.js';
-import {renderDateOrderTracking,progressBar} from '../utils/date.js';
+import {renderDateOrderTracking,progressBar} from '../../utils/date.js';
 import {calculateCartQuantity} from "../../data/cart.js"
 
 const url = new URL(window.location.href);
