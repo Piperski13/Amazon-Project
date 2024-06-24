@@ -28,7 +28,7 @@ To set up and run this project locally, follow these steps:
 3. **Install the dependencies:**
    `npm install`
 4. **Start the Node.js server:**
-   `node server.js`
+   `node app.js`
 **The application will be running at http://localhost:3000.**
 
 ## Usage
