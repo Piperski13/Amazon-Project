@@ -1,4 +1,4 @@
-import {orders} from '../../data/orders.js';
+import {orders,removeFromOrders} from '../../data/orders.js';
 import {formatCurrency} from '../../utils/money.js';
 import {renderDateOrder} from '../../utils/date.js';
 import {loadProducts,loadProductsFetch,products} from '../../data/products.js';
@@ -62,7 +62,7 @@ function renderOrderSummary(){
       return generatedDetailsHTML;
     }
     generatedHTML += `
-        <div class="order-container">
+        <div class="order-container js-orders-item-container-${order.id}">
           <div class="order-header">
             <div class="order-header-left-section">
               <div class="order-date">
@@ -79,6 +79,8 @@ function renderOrderSummary(){
               <div class="order-header-label">Order ID:</div>
               <div>${order.id}</div>
             </div>
+
+            <button class="remove-order js-remove-order" data-product-id="${order.id}">X</button>
           </div>
           ${returnGeneratedDetails(generatedDetailsHTML)}
         </div>
@@ -93,6 +95,16 @@ function renderOrderSummary(){
       const productId = button.dataset.productId;
       addToCart(productId);
       updateCartQuantity();
+    })
+  })
+
+  document.querySelectorAll('.js-remove-order').forEach((button)=>{
+    button.addEventListener('click',()=>{
+      const orderId = button.dataset.productId;
+      removeFromOrders(orderId);
+      const container = document.querySelector(`.js-orders-item-container-${orderId}`);
+      container.remove();
+      renderOrderSummary();
     })
   })
 

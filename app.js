@@ -35,8 +35,7 @@ app.get('/products',(req,res)=>{
 
 app.post('/amazon.html',(req,res)=>{  
   const currentTime = dayjs().toISOString();
-  const cart = req.body;
-  let priceCentsTotal=0;
+  const { cart, totalAfterTax } = req.body;
   let matchingItem;
   let newCart=[];
 
@@ -50,10 +49,6 @@ app.post('/amazon.html',(req,res)=>{
     })
   });
   
-  newCart.forEach(element => {
-    priceCentsTotal += element.priceCents;
-  });
-
   let order = cart.map(cartItem =>{
     const itemNumberOption = parseInt(cartItem.deliveryOptionId);
     const finalOption = deliveryOptions[itemNumberOption-1];
@@ -69,7 +64,7 @@ app.post('/amazon.html',(req,res)=>{
   res.status(201).json({
     id: uuidv4(),
     orderTime: currentTime,
-    totalCostCents: priceCentsTotal,
+    totalCostCents: totalAfterTax,
     products: order
   })         
 });
