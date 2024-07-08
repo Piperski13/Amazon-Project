@@ -53,6 +53,8 @@ app.post('/amazon.html',(req,res)=>{
     const itemNumberOption = parseInt(cartItem.deliveryOptionId);
     const finalOption = deliveryOptions[itemNumberOption-1];
     const estimatedDeliveryTime = dayjs().add(finalOption.deliveryDays,'days').toISOString();
+    //estimatedDelivery needs to get called by function calculateDeliveryDate
+    //ESM overlaping issuse
     return {
       productId: cartItem.productId,
       quantity: cartItem.quantity,
