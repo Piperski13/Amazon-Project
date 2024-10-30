@@ -1,10 +1,10 @@
 import {orders,removeFromOrders} from '../../data/orders.js';
 import {formatCurrency} from '../../utils/money.js';
 import {renderDateOrder} from '../../utils/date.js';
-import {loadProducts,loadProductsFetch,products} from '../../data/products.js';
+import {loadProducts,loadProductsFetch,loadProductsFetchAwait,products} from '../../data/products.js';
 import {addToCart, calculateCartQuantity} from '../../data/cart.js';
 console.log(orders);
-loadProductsFetch().then(()=>{          //fetch, returns promise, method then
+loadProductsFetchAwait().then(()=>{          //fetch, returns promise, method then
   renderOrderSummary();
 });
 
