@@ -23,6 +23,3 @@ export function progressBar(order,delivery){
   const percentProggress = (currentTime - orderTime) / (deliveryTime - orderTime) * 100;
   return percentProggress;
 }
-
-
-

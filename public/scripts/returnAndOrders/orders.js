@@ -1,14 +1,15 @@
 import {orders,removeFromOrders} from '../../data/orders.js';
 import {formatCurrency} from '../../utils/money.js';
 import {renderDateOrder} from '../../utils/date.js';
-import {loadProducts,loadProductsFetch,loadProductsFetchAwait,products} from '../../data/products.js';
+import {loadProductsFetchAwait,products} from '../../data/products.js';
 import {addToCart, calculateCartQuantity} from '../../data/cart.js';
+
 console.log(orders);
+
 loadProductsFetchAwait().then(()=>{          //fetch, returns promise, method then
   renderOrderSummary();
 });
 
-// loadProducts(renderOrderSummary);    //call back , XMLHttpRequest
 
 function renderOrderSummary(){
   let generatedHTML = '';
@@ -118,7 +119,3 @@ function renderOrderSummary(){
 };
 
 console.log(orders); // number of orders
-// console.log(orders[1].products); //index 1 all products array
-// console.log(orders[0].products[0].productId);
-
-
